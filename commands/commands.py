@@ -1,4 +1,5 @@
 import random, asyncio
+
 from database.database import add_block_user, remove_block_user, all_block_users
 
 async def hello(message):
@@ -39,7 +40,21 @@ async def unblock_user(message, args):
     else:
         await message.reply("Укажите аргумент.")
 
-    
+async def typing(message, args):
+    if args[0]:
+        word = " ".join(args)
+        content = ""
+        for i in word:
+            await asyncio.sleep(random.choice([0.1, 0.05, 0.15, 0.2]))
+            content += i
+            if i == " ":
+                continue
+            await message.edit(content)
+            for i in range(0,2):
+                await message.edit(content + "|")
+                await asyncio.sleep(0.2)
+                await message.edit(content)
+                
 
 async def blocklist(message, args):
     content = "Заблокированные пользователи: \n"
@@ -53,7 +68,8 @@ def register_commands(command_manager):
         "pentagon": pentagon,
         "block_user": block_user,
         "unblock_user": unblock_user,
-        "blocklist": blocklist
+        "blocklist": blocklist,
+        "typing":typing
     }
     for command_name, command_function in commands.items():
         command_manager.add_command(command_name, command_function)

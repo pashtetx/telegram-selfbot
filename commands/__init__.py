@@ -11,7 +11,7 @@ class CommandManager():
         self.message = message
         self.config = Config()
         self.commands = {}
-        if message and message.from_user:
+        if message and message.from_user and message.text:
             self.args = self.message.text.split(" ")
             self.args.remove(self.args[0])
             if str(message.from_user.id) == Config().admin_id:
@@ -21,7 +21,7 @@ class CommandManager():
         self.message = message
 
     def check_is_command(self, message: Message) -> bool:
-        if message.text.startswith(self.config.command_prefix): # Если сообщение начинается с префикса из конфига
+        if message.text and message.text.startswith(self.config.command_prefix): # Если сообщение начинается с префикса из конфига
             return True
         return False
 
