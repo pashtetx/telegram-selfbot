@@ -2,7 +2,7 @@ import sqlite3
 
 
 def connect():
-    db = sqlite3.connect("db.sqlite")
+    db = sqlite3.connect("telegram-selfbot.sqlite")
     return db
 
 def create_db():
